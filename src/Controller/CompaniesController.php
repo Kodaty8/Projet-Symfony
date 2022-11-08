@@ -9,8 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompaniesController extends AbstractController
 {
     #[Route('/companies', name: 'app_companies')]
-    public function index(): Response
+    public function index(CompanyRepository $companyRepository): Response
     {
+        $companies = $companyRepository->findAll();
+        db($companies);
+
         return $this->render('companies/index.html.twig', [
             'controller_name' => 'CompaniesController',
             'title' => 'Companies',
