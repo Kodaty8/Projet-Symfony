@@ -13,10 +13,13 @@ use App\Entity\Offer;
 
 class NewOfferController extends AbstractController
 {
-    #[Route('/offer/new', name: 'app_new_offer')]
-    public function newOffer(Request $request, OfferRepository $offerRepository): Response
+    #[Route('/offer/new/{id}', name: 'app_new_offer', defaults: ['id'=>0])]
+    public function newOffer(int $id, Request $request, OfferRepository $offerRepository): Response
     {
         $offer = new offer();
+        if ($id > 0){
+            $offer = $offerRepository->find($id);
+        }
         $form = $this->createForm(NewOfferType::class, $offer);
 
         $form->handleRequest($request);

@@ -13,10 +13,13 @@ use App\Entity\Skill;
 
 class NewSkillController extends AbstractController
 {
-    #[Route('/skill/new', name: 'app_new_skill')]
-    public function newSkill(Request $request, SkillRepository $skillRepository): Response
+    #[Route('/skill/new/{id}', name: 'app_new_skill', defaults: ['id'=>0])]
+    public function newSkill(int $id, Request $request, SkillRepository $skillRepository): Response
     {
         $skill = new Skill();
+        if ($id > 0){
+            $skill = $skillRepository->find($id);
+        }
         $form = $this->createForm(NewSkillType::class, $skill);
 
         $form->handleRequest($request);

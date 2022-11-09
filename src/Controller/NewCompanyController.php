@@ -13,10 +13,13 @@ use App\Entity\Company;
 
 class NewCompanyController extends AbstractController
 {
-    #[Route('/company/new', name: 'app_new_company')]
-    public function newCompany(Request $request, CompanyRepository $companyRepository): Response
+    #[Route('/company/new/{id}', name: 'app_new_company', defaults: ['id'=>0])]
+    public function newCompany(int $id, Request $request, CompanyRepository $companyRepository): Response
     {
         $company = new Company();
+        if ($id > 0){
+            $company = $companyRepository->find($id);
+        }
         $form = $this->createForm(NewCompanyType::class, $company);
 
         $form->handleRequest($request);
