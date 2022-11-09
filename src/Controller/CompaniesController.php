@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Company;
-use App\Repository\CompanyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +15,9 @@ class CompaniesController extends AbstractController
     {
         $repository = $em->getRepository(Company::class);
         $companies = $repository->findAll();
-        dd($companies);
 
-        return $this->render('companies/index.html.twig');
+        return $this->render('companies/index.html.twig', [
+            'companies' => $companies,
+        ]);
     }
 }
