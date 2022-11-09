@@ -2,21 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
+use App\Repository\CompanyRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CompaniesController extends AbstractController
 {
-    #[Route('/companies', name: 'app_companies')]
-    public function index(CompanyRepository $companyRepository): Response
+    #[Route('/companies', name: 'companies')]
+    public function index(EntityManagerInterface $em): Response
     {
-        $companies = $companyRepository->findAll();
-        db($companies);
+        $repository = $em->getRepository(Company::class);
+        $companies = $repository->findAll();
+        dd($companies);
 
-        return $this->render('companies/index.html.twig', [
-            'controller_name' => 'CompaniesController',
-            'title' => 'Companies',
-        ]);
+        return $this->render('companies/index.html.twig');
     }
 }
