@@ -52,4 +52,6 @@
 /.web-server-pid
 node_modules
 
+/.idea
+
 /var/data.db
