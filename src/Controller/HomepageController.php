@@ -6,15 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProfilesController extends AbstractController
+class HomepageController extends AbstractController
 {
-    #[Route('/profiles', name: 'app_profiles')]
+    #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        
-        return $this->render('profiles/index.html.twig', [
-            'controller_name' => 'ProfilesController',
-            'title' => 'Profiles',
+        return $this->render('homepage/index.html.twig', [
+            'controller_name' => 'HomepageController',
         ]);
     }
 }
