@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\CompanyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,19 +13,16 @@ use App\Entity\Company;
 
 class NewCompanyController extends AbstractController
 {
-    #[Route('/new/company', name: 'app_new_company')]
-    public function newCompany(Request $request, ManagerRegistry $doctrine): Response
+    #[Route('/company/new', name: 'app_new_company')]
+    public function newCompany(Request $request, CompanyRepository $companyRepository): Response
     {
         $company = new Company();
         $form = $this->createForm(NewCompanyType::class, $company);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $retrieved_data = $form->getData();
-
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($retrieved_data);
-            $entityManager->flush();
+            $company = $form->getData();
+            $companyRepository->save($company, true);
 
             return $this->redirectToRoute('task_success');
         }

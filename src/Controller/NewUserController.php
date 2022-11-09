@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,19 +13,16 @@ use App\Entity\User;
 
 class NewUserController extends AbstractController
 {
-    #[Route('/new/user', name: 'app_new_user')]
-    public function newUser(Request $request, ManagerRegistry $doctrine): Response
+    #[Route('/user/new', name: 'app_new_user')]
+    public function newUser(Request $request, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(NewUserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $retrieved_data = $form->getData();
-
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($retrieved_data);
-            $entityManager->flush();
+            $user = $form->getData();
+            $userRepository->save($user, true);
 
             return $this->redirectToRoute('task_success');
         }

@@ -25,7 +25,6 @@ class NewOfferType extends AbstractType
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'multiple' => false,
-                'expanded' => true,
             ])
             ->add('requirements', EntityType::class, [
                 'class' => Skill::class,

@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,19 +13,16 @@ use App\Entity\Offer;
 
 class NewOfferController extends AbstractController
 {
-    #[Route('/new/offer', name: 'app_new_offer')]
-    public function newOffer(Request $request, ManagerRegistry $doctrine): Response
+    #[Route('/offer/new', name: 'app_new_offer')]
+    public function newOffer(Request $request, OfferRepository $offerRepository): Response
     {
         $offer = new offer();
         $form = $this->createForm(NewOfferType::class, $offer);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $retrieved_data = $form->getData();
-
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($retrieved_data);
-            $entityManager->flush();
+            $offer = $form->getData();
+            $offerRepository->save($offer, true);
 
             return $this->redirectToRoute('task_success');
         }
