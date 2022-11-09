@@ -4,6 +4,14 @@
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+
 # Email spool folder
 /app/spool/*
 
@@ -31,13 +39,24 @@
 !bin/symfony_requirements
 /vendor/
 
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
 
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+
 # PHPUnit
 /app/phpunit.xml
 /phpunit.xml
+###< symfony/phpunit-bridge ###
 
 # Build data
 /build/
