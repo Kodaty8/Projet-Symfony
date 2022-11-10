@@ -11,7 +11,8 @@
             <div class="m-2 card" style="width:300px">
                 <div class="card-img-overlay">
                     <h4 class="card-title">{{ offer.name }}</h4>
-                    <p class="card-text">{{ offer.description }}.</p>
+                    <p class="card-text">{{ offer.company.name }}</p>
+                    <p class="card-text">{{ offer.description }}</p>
                     <a href="/offers/new/{{ offer.id}}" class="btn btn-primary">Details</a>
                 </div>
             </div>
