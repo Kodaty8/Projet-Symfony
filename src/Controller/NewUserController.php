@@ -13,10 +13,13 @@ use App\Entity\User;
 
 class NewUserController extends AbstractController
 {
-    #[Route('/user/new', name: 'app_new_user')]
-    public function newUser(Request $request, UserRepository $userRepository): Response
+    #[Route('/user/new/{id}', name: 'app_new_user', defaults: ['id'=>0])]
+    public function newUser(int $id, Request $request, UserRepository $userRepository): Response
     {
         $user = new User();
+        if ($id > 0){
+            $user = $userRepository->find($id);
+        }
         $form = $this->createForm(NewUserType::class, $user);
 
         $form->handleRequest($request);
