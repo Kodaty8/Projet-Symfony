@@ -13,7 +13,7 @@ use App\Entity\Offer;
 
 class NewOfferController extends AbstractController
 {
-    #[Route('/offer/new/{id}', name: 'app_new_offer', defaults: ['id'=>0])]
+    #[Route('/offers/new/{id}', name: 'new_offer', defaults: ['id'=>0])]
     public function newOffer(int $id, Request $request, OfferRepository $offerRepository): Response
     {
         $offer = new offer();

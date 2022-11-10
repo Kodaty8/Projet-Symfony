@@ -13,7 +13,7 @@ use App\Entity\User;
 
 class NewUserController extends AbstractController
 {
-    #[Route('/user/new/{id}', name: 'app_new_user', defaults: ['id'=>0])]
+    #[Route('/users/new/{id}', name: 'new_user', defaults: ['id'=>0])]
     public function newUser(int $id, Request $request, UserRepository $userRepository): Response
     {
         $user = new User();

@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OffersController extends AbstractController
 {
-    #[Route('/offers', name: 'offers')]
+    #[Route('/', name: 'offers')]
     public function index(EntityManagerInterface $em): Response
     {
         $repository = $em->getRepository(Offer::class);
