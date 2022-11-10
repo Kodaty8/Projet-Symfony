@@ -2,18 +2,33 @@
 
 namespace App\Service;
 
+use App\Entity\User;
+use App\Repository\OfferRepository;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
+
 class Matching
 {
-    public function getMatchingOffers(int $user, ): string
+    public function getMatchingOffers(User $user, OfferRepository $offerRepository)
     {
-        $messages = [
-            'You did it! You updated the system! Amazing!',
-            'That was one of the coolest updates I\'ve seen all day!',
-            'Great work! Keep going!',
-        ];
+        $skills = $user->getSkills();
+        $offers = $offerRepository->findAll();
+        $matchingoffers = [];
+        foreach ($offers as $offer){
+            $matchPercentage =0;
+            $requirements = $offer->getRequirements();
+            foreach ($requirements as $requirement){
+                foreach ($skills as $skill){
+                    if ($skill->getName() == $requirement->getName()){
+                        $matchPercentage +=1;
+                    }
+                }
+            }
+            if ($matchPercentage >= count($requirements)*0.7){
+                array_push($matchingoffers, $offer);
+            }
+        }
 
-        $index = array_rand($messages);
-
-        return $messages[$index];
+        return $matchingoffers;
     }
 }
