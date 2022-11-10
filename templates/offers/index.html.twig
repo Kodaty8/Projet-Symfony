@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OffersController!{% endblock %}
+
+{% block body %}
+<div class="container d-flex flex-wrap align-items-center">
+    {% for offer in offers %}
+        <div class="m-2 card" style="width:300px">
+            <div class="card-img-overlay">
+                <h4 class="card-title">{{ offer.name }}</h4>
+                <p class="card-text">{{ offer.description }}.</p>
+                <a href="#" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>}
