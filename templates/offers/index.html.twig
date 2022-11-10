@@ -9,9 +9,10 @@
                 <div class="card-img-overlay">
                     <h4 class="card-title">{{ offer.name }}</h4>
                     <p class="card-text">{{ offer.description }}.</p>
-                    <a href="#" class="btn btn-primary">Details</a>
+                    <a href="/offers/new/{{ offer.id}}" class="btn btn-primary">Details</a>
                 </div>
             </div>
         {% endfor %}
+        <a href="/offers/new/" class="btn btn-primary">New</a>
     </div>
 {% endblock %}
