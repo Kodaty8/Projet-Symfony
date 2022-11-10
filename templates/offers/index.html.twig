@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="container d-flex flex-wrap align-items-center">
+        <a href="/offers/new/" class="btn btn-primary">New</a>
         {% for offer in offers %}
             <div class="m-2 card" style="width:300px">
                 <div class="card-img-overlay">
@@ -13,6 +14,5 @@
                 </div>
             </div>
         {% endfor %}
-        <a href="/offers/new/" class="btn btn-primary">New</a>
     </div>
 {% endblock %}
