@@ -13,7 +13,7 @@ use App\Entity\Company;
 
 class NewCompanyController extends AbstractController
 {
-    #[Route('/company/new/{id}', name: 'app_new_company', defaults: ['id'=>0])]
+    #[Route('/companies/new/{id}', name: 'new_company', defaults: ['id'=>0])]
     public function newCompany(int $id, Request $request, CompanyRepository $companyRepository): Response
     {
         $company = new Company();

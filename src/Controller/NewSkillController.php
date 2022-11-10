@@ -13,7 +13,7 @@ use App\Entity\Skill;
 
 class NewSkillController extends AbstractController
 {
-    #[Route('/skill/new/{id}', name: 'app_new_skill', defaults: ['id'=>0])]
+    #[Route('/skills/new/{id}', name: 'new_skill', defaults: ['id'=>0])]
     public function newSkill(int $id, Request $request, SkillRepository $skillRepository): Response
     {
         $skill = new Skill();
