@@ -4,19 +4,36 @@
 
 {% block body %}
     <div class="container">
-        <h1>All offers ({{ offers|length }})</h1>
-        <a href="/offers/new/" class="btn btn-primary">New</a>
-        <div class="d-flex flex-wrap align-items-center">
+        <div class="text-center mb-5">
+            <h3>All offers</h3>
+            <div class="lead">
+                <a class="btn btn-outline-warning link-dark" href="/offers/new/">New</a>
+            </div>
+        </div>
         {% for offer in offers %}
-            <div class="m-2 card" style="width:300px">
-                <div class="card-img-overlay">
-                    <h4 class="card-title">{{ offer.name }}</h4>
-                    <p class="card-text">{{ offer.company.name }}</p>
-                    <p class="card-text">{{ offer.description }}</p>
-                    <a href="/offers/new/{{ offer.id}}" class="btn btn-primary">Details</a>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex flex-column flex-lg-row">
+                    <div class="row flex-fill">
+                        <div class="col-sm-5">
+                            <h4 class="h5">{{ offer.name }}</h4>
+                            <span class="badge bg-secondary">{{ offer.company.name }}</span> <span class="badge bg-success">Active</span>
+                        </div>
+                        <div class="col-sm-4 py-2">
+                            <span class="badge bg-secondary">skills</span>
+                        </div>
+                        <div class="col-sm-3 text-lg-end">
+                            <a href="#" class="btn btn-primary stretched-link">Apply</a>
+                            <a href="offer/{{ offer.id}}" class="btn btn-primary stretched-link">Details</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
         </div>
+        {% endfor %}
+        <div class="pagination pagination-sm">
+            {{ knp_pagination_render(offers) }}
+        </div>
+
     </div>
 {% endblock %}
